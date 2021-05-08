@@ -1,11 +1,12 @@
 const {Genre, validate} = require('../models/genres');
+const Joi = require('joi');
 const mongoose = require('mongoose');
 const express = require('express');
 const router = express.Router();
 
 
 router.get('/', async (req, res) => {
-  const genres = await Genre.find().sort('name');
+  const genres = await Genre.find().sort({ name: 1 });
   res.send(genres);
 });
 
@@ -49,11 +50,11 @@ router.get('/:id', async (req, res) => {
 });
 
 function validateGenre(genre) {
-  const schema = {
+  const schema = Joi.object({
     name: Joi.string().min(3).required()
-  };
+  });
 
-  return Joi.validate(genre, schema);
+  return schema.validate(genre);
 }
 
 module.exports = router;

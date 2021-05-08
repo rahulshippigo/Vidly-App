@@ -1,3 +1,4 @@
+const Joi = require('joi');
 const {Rental, validate} = require('../models/rentals'); 
 const {Movie} = require('../models/movies'); 
 const {Customer} = require('../models/customer'); 
